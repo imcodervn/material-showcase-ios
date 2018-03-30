@@ -30,9 +30,11 @@ class ViewController: UIViewController {
     showcase.setTargetView(view: button)
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
+    showcase.skipText = "skip"
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
     showcase.backgroundPromptColor = UIColor.blue
     showcase.isTapRecognizerForTagretView = true
+    showcase.isSkipButtonVisible = true
     showcase.delegate = self
     showcase.show(completion: {
         print("==== completion Action 1 ====")
@@ -132,5 +134,8 @@ extension ViewController: MaterialShowcaseDelegate {
     }
     
     tutorialStep += 1
+  }
+  func showCaseSkipped() {
+    print("ShowCase skipped")
   }
 }

@@ -10,6 +10,7 @@ import UIKit
 @objc public protocol MaterialShowcaseDelegate: class {
   @objc optional func showCaseWillDismiss(showcase: MaterialShowcase)
   @objc optional func showCaseDidDismiss(showcase: MaterialShowcase)
+  @objc optional func showCaseSkipped()
 }
 
 public class MaterialShowcase: UIView {
@@ -56,6 +57,8 @@ public class MaterialShowcase: UIView {
   // - false: recognize tap from all displayed showcase.
   // - true: recognize tap for targetView area only.
   @objc public var isTapRecognizerForTagretView: Bool = false
+  // determine show skip button
+  @objc public var isSkipButtonVisible: Bool = false
   // Target
   @objc public var shouldSetTintColor: Bool = true
   @objc public var targetTintColor: UIColor!
@@ -64,12 +67,16 @@ public class MaterialShowcase: UIView {
   // Text
   @objc public var primaryText: String!
   @objc public var secondaryText: String!
+  @objc public var skipText: String!
   @objc public var primaryTextColor: UIColor!
   @objc public var secondaryTextColor: UIColor!
+  @objc public var skipTextColor: UIColor!
   @objc public var primaryTextSize: CGFloat = 0.0
   @objc public var secondaryTextSize: CGFloat = 0.0
+  @objc public var skipTextSize: CGFloat = 0.0
   @objc public var primaryTextFont: UIFont?
   @objc public var secondaryTextFont: UIFont?
+  @objc public var skipTextFont: UIFont?
   @objc public var primaryTextAlignment: NSTextAlignment = .left
   @objc public var secondaryTextAlignment: NSTextAlignment = .left
   // Animation
@@ -211,16 +218,21 @@ extension MaterialShowcase {
     // Text
     primaryText = MaterialShowcaseInstructionView.PRIMARY_DEFAULT_TEXT
     secondaryText = MaterialShowcaseInstructionView.SECONDARY_DEFAULT_TEXT
+    skipText = MaterialShowcaseInstructionView.SKIP_DEFAULT_TEXT
     primaryTextColor = MaterialShowcaseInstructionView.PRIMARY_TEXT_COLOR
     secondaryTextColor = MaterialShowcaseInstructionView.SECONDARY_TEXT_COLOR
+    skipTextColor = MaterialShowcaseInstructionView.SKIP_TEXT_COLOR
     primaryTextSize = MaterialShowcaseInstructionView.PRIMARY_TEXT_SIZE
     secondaryTextSize = MaterialShowcaseInstructionView.SECONDARY_TEXT_SIZE
+    skipTextSize = MaterialShowcaseInstructionView.SKIP_TEXT_SIZE
     // Animation
     aniComeInDuration = ANI_COMEIN_DURATION
     aniGoOutDuration = ANI_GOOUT_DURATION
     aniRippleAlpha = ANI_RIPPLE_ALPHA
     aniRippleColor = ANI_RIPPLE_COLOR
     aniRippleScale = ANI_RIPPLE_SCALE
+    
+//    instructionView.delegate = self.delegate
   }
   
   func startAnimations() {
@@ -271,6 +283,10 @@ extension MaterialShowcase {
     } else {
         // Add gesture recognizer for both container and its subview
         addGestureRecognizer(tapGestureRecoganizer())
+    }
+    
+    if isSkipButtonVisible {
+      self.instructionView.isUserInteractionEnabled = true
     }
   }
   
@@ -358,6 +374,7 @@ extension MaterialShowcase {
   /// Configures and adds primary label view
   private func addInstructionView(at center: CGPoint) {
     instructionView = MaterialShowcaseInstructionView()
+    instructionView.delegate = self.delegate
     
     instructionView.primaryTextAlignment = primaryTextAlignment
     instructionView.primaryTextFont = primaryTextFont
@@ -370,6 +387,12 @@ extension MaterialShowcase {
     instructionView.secondaryTextSize = secondaryTextSize
     instructionView.secondaryTextColor = secondaryTextColor
     instructionView.secondaryText = secondaryText
+    
+    instructionView.skipTextFont = skipTextFont
+    instructionView.skipTextSize = skipTextSize
+    instructionView.skipTextColor = skipTextColor
+    instructionView.skipText = skipText
+    instructionView.isSkipButtonVisible = isSkipButtonVisible
     
     // Calculate x position
     var xPosition = LABEL_MARGIN

@@ -94,5 +94,9 @@ extension MaterialShowcaseController: MaterialShowcaseDelegate {
       self.nextShowcase()
     }
   }
+  public func showCaseSkipped() {
+    print("print skip")
+    self.stop()
+  }
 }
 

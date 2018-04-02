@@ -10,7 +10,7 @@ import UIKit
 @objc public protocol MaterialShowcaseDelegate: class {
   @objc optional func showCaseWillDismiss(showcase: MaterialShowcase)
   @objc optional func showCaseDidDismiss(showcase: MaterialShowcase)
-  @objc optional func showCaseSkipped()
+  @objc optional func showCaseSkipped(showcase: MaterialShowcase)
 }
 
 public class MaterialShowcase: UIView {
@@ -87,12 +87,14 @@ public class MaterialShowcase: UIView {
   @objc public var aniRippleAlpha: CGFloat = 0.0
   // Delegate
   @objc public weak var delegate: MaterialShowcaseDelegate?
+  @objc public var showcaseViewTag: Int = 100
   
   public init() {
     // Create frame
     let frame = CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
     super.init(frame: frame)
-    
+    // Tag showcase view to pass as parameter in MaterialStructionView
+    self.tag = showcaseViewTag
     configure()
   }
   
@@ -375,6 +377,7 @@ extension MaterialShowcase {
   private func addInstructionView(at center: CGPoint) {
     instructionView = MaterialShowcaseInstructionView()
     instructionView.delegate = self.delegate
+    instructionView.showcaseViewTag = self.showcaseViewTag
     
     instructionView.primaryTextAlignment = primaryTextAlignment
     instructionView.primaryTextFont = primaryTextFont
@@ -393,6 +396,7 @@ extension MaterialShowcase {
     instructionView.skipTextColor = skipTextColor
     instructionView.skipText = skipText
     instructionView.isSkipButtonVisible = isSkipButtonVisible
+    
     
     // Calculate x position
     var xPosition = LABEL_MARGIN

@@ -45,6 +45,7 @@ public class MaterialShowcaseInstructionView: UIView {
   public var skipTextFont: UIFont?
   
   public weak var delegate: MaterialShowcaseDelegate?
+  public var showcaseViewTag: Int!
   
   public init() {
     // Create frame
@@ -166,8 +167,9 @@ public class MaterialShowcaseInstructionView: UIView {
 
   //Trigger skip button gesture
   @objc func skipButtonTouchSelector() {
-    if delegate != nil && delegate?.showCaseSkipped != nil {
-      delegate?.showCaseSkipped?()
+    if delegate != nil && delegate?.showCaseSkipped != nil && showcaseViewTag != nil {
+      let view = self.superview?.viewWithTag(showcaseViewTag) as! MaterialShowcase
+      delegate?.showCaseSkipped?(showcase: view)
     }
   }
   

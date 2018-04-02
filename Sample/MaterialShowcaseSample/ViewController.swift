@@ -135,7 +135,10 @@ extension ViewController: MaterialShowcaseDelegate {
     
     tutorialStep += 1
   }
-  func showCaseSkipped() {
-    print("ShowCase skipped")
+  func showCaseSkipped(showcase: MaterialShowcase) {
+    if showcase != nil && showcase.completeShowcase != nil {
+      showcase.completeShowcase()
+
+    }
   }
 }

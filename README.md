@@ -1,6 +1,6 @@
 # Material Showcase for iOS
 
-[![Download](https://img.shields.io/badge/pod-v0.5.1-blue.svg)](https://cocoapods.org/pods/MaterialShowcase)
+[![Download](https://img.shields.io/cocoapods/v/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![CocoaPods downloaded](https://img.shields.io/cocoapods/dt/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![CocoaPods installed](https://img.shields.io/cocoapods/at/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
 [![CocoaPods platforms](https://img.shields.io/cocoapods/p/MaterialShowcase.svg)](https://cocoapods.org/pods/MaterialShowcase)
@@ -11,7 +11,7 @@
 | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/material-showcase.gif) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo2.png) |
 | ---------------------------------------- | ---------------------------------------- |
 | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo3.png) | ![Screenshots](https://github.com/aromajoin/material-showcase-ios/blob/master/art/demo4.png) |
-| ![Screenshots for Persian intro](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/feat/support_alignment/art/demo-persian.jpg) |                                          |
+| ![Screenshots for Persian intro](https://raw.githubusercontent.com/aromajoin/material-showcase-ios/master/art/demo-persian.jpg) | ![iPad Screenshots](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/master/art/iPad-Screenshot.png)  |
 
 
 ## Requirement
@@ -24,40 +24,11 @@ You can install it by using CocoaPods. Please add the following line to your Pod
 pod 'MaterialShowcase'
 ```
 
+## Usage
+
 ### Objective-C
 
-After installing `MaterialShowcase` pod, please follow the below instructions to set it up in Objective-C project.
-
-![Objective-C showcase](https://raw.githubusercontent.com/Husseinhj/material-showcase-ios/fix/objc_property/art/ObjectiveCSupportScreenshot.png)
-
-**OR**
-
-Add below Cocoapods script to your pod file :
-
-``` ruby
-# platform :ios, '9.0'
-
-target 'YOUR_PROJECT_NAME' do
-  use_frameworks!
-
-  pod 'MaterialShowcase'
-
-  post_install do |installer|
-    installer.pods_project.targets.each do |target|
-      if target.name.include?('MaterialShowcase')
-        target.build_configurations.each do |config|
-           config.build_settings['SWIFT_VERSION'] = '3.2'
-        end
-      end
-    end
-  end
-
-end
-```
-
-Using `#import "MaterialShowcase-Swift.h"` to import library to your class.
-
-## Usage
+Please, read [this doc](https://github.com/Husseinhj/material-showcase-ios/blob/master/docs-standalone/Objective-C.md) and follow the instructions.
 
 ### Basic
 ```swift

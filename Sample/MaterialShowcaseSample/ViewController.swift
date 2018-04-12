@@ -30,7 +30,7 @@ class ViewController: UIViewController {
     showcase.setTargetView(view: button)
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
-    showcase.skipText = "skip"
+    showcase.skipText = "Skip AppTour"
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
     showcase.backgroundPromptColor = UIColor.blue
     showcase.isTapRecognizerForTagretView = true

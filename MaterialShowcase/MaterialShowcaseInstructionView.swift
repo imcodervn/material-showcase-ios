@@ -13,22 +13,13 @@ public class MaterialShowcaseInstructionView: UIView {
   
   internal static let PRIMARY_TEXT_SIZE: CGFloat = 20
   internal static let SECONDARY_TEXT_SIZE: CGFloat = 15
-  internal static let SKIP_TEXT_SIZE: CGFloat = 20
   internal static let PRIMARY_TEXT_COLOR = UIColor.white
   internal static let SECONDARY_TEXT_COLOR = UIColor.white.withAlphaComponent(0.87)
-  internal static let SKIP_TEXT_COLOR = UIColor.red
   internal static let PRIMARY_DEFAULT_TEXT = "Awesome action"
   internal static let SECONDARY_DEFAULT_TEXT = "Tap here to do some awesome thing"
-  internal static let SKIP_DEFAULT_TEXT = "skip"
-  internal static let SKIP_TEXT_MARGIN_TOP: CGFloat = 20
-  internal static let SKIP_BUTTON_VISIBLE: Bool = false
-  internal static let SKIP_BUTTON_BACKGROUND_COLOR = UIColor.white
-  internal static let SKIP_BUTTON_BORDER_RADIUS: CGFloat = 2.0
-  
   public var primaryLabel: UILabel!
   public var secondaryLabel: UILabel!
-  public var skipButton: UIButton!
-  public var isSkipButtonVisible: Bool!
+
   // Text
   public var primaryText: String!
   public var secondaryText: String!
@@ -40,13 +31,6 @@ public class MaterialShowcaseInstructionView: UIView {
   public var secondaryTextFont: UIFont?
   public var primaryTextAlignment: NSTextAlignment!
   public var secondaryTextAlignment: NSTextAlignment!
-    
-  public var skipText: String!
-  public var skipTextColor: UIColor!
-  public var skipTextSize: CGFloat!
-  public var skipTextFont: UIFont?
-  public var skipButtonBackgroundColor: UIColor!
-  public var skipButtonBorderRadius: CGFloat!
   
   public weak var delegate: MaterialShowcaseDelegate?
   public var showcaseViewTag: Int!
@@ -71,16 +55,10 @@ public class MaterialShowcaseInstructionView: UIView {
     // Text
     primaryText = MaterialShowcaseInstructionView.PRIMARY_DEFAULT_TEXT
     secondaryText = MaterialShowcaseInstructionView.SECONDARY_DEFAULT_TEXT
-    skipText = MaterialShowcaseInstructionView.SKIP_DEFAULT_TEXT
     primaryTextColor = MaterialShowcaseInstructionView.PRIMARY_TEXT_COLOR
     secondaryTextColor = MaterialShowcaseInstructionView.SECONDARY_TEXT_COLOR
-    skipTextColor = MaterialShowcaseInstructionView.SKIP_TEXT_COLOR
     primaryTextSize = MaterialShowcaseInstructionView.PRIMARY_TEXT_SIZE
     secondaryTextSize = MaterialShowcaseInstructionView.SECONDARY_TEXT_SIZE
-    skipTextSize = MaterialShowcaseInstructionView.SKIP_TEXT_SIZE
-    isSkipButtonVisible = MaterialShowcaseInstructionView.SKIP_BUTTON_VISIBLE
-    skipButtonBackgroundColor = MaterialShowcaseInstructionView.SKIP_BUTTON_BACKGROUND_COLOR
-    skipButtonBorderRadius = MaterialShowcaseInstructionView.SKIP_BUTTON_BORDER_RADIUS
   }
   
   /// Configures and adds primary label view
@@ -142,44 +120,6 @@ public class MaterialShowcaseInstructionView: UIView {
     frame = CGRect(x: frame.minX, y: frame.minY, width: getWidth(), height: primaryLabel.frame.height + secondaryLabel.frame.height)
   }
   
-  private func addSkipButton() {
-    //Calculate size of skip text by font
-    skipButton = UIButton(type: .roundedRect)
-    skipButton.setTitle(skipText, for: .normal)
-    skipButton.setTitleColor(skipTextColor, for: .normal)
-    skipButton.titleLabel?.textColor = UIColor.red
-    skipButton.titleLabel?.font = UIFont.systemFont(ofSize: skipTextSize)
-    skipButton.backgroundColor = skipButtonBackgroundColor
-    skipButton.layer.cornerRadius = skipButtonBorderRadius
-    skipButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 12, bottom: 2, right: 12)
-    skipButton.frame = CGRect(x: 0,
-                             y: secondaryLabel.frame.maxY + MaterialShowcaseInstructionView.SKIP_TEXT_MARGIN_TOP,
-                             width: skipButton.frame.width,
-                             height: skipButton.frame.height)
-    skipButton.sizeToFit()
-    // Handle gesture of skip button
-    skipButton.addGestureRecognizer(tapGestureRecoganizer())
-    addSubview(skipButton)
-    frame = CGRect(x: frame.minX, y: frame.minY + secondaryLabel.frame.height, width: getWidth(), height: primaryLabel.frame.height + secondaryLabel.frame.height + skipButton.frame.height + MaterialShowcaseInstructionView.SKIP_TEXT_MARGIN_TOP)
-  }
-  
-  /// Create TapGestureRecoganizer of skip button
-  private func tapGestureRecoganizer() -> UIGestureRecognizer {
-    let tapGesture = UITapGestureRecognizer(target: self, action: #selector(MaterialShowcaseInstructionView.skipButtonTouchSelector))
-    tapGesture.numberOfTapsRequired = 1
-    tapGesture.numberOfTouchesRequired = 1
-    return tapGesture
-  }
-
-  //Trigger skip button gesture
-  @objc func skipButtonTouchSelector() {
-    if delegate != nil && delegate?.showCaseSkipped != nil && showcaseViewTag != nil {
-      let view = self.superview?.viewWithTag(showcaseViewTag) as! MaterialShowcase
-      delegate?.showCaseSkipped?(showcase: view)
-    }
-  }
-  
-  
   //Calculate width per device
   private func getWidth() -> CGFloat{
     //superview was left side
@@ -199,9 +139,5 @@ public class MaterialShowcaseInstructionView: UIView {
     addPrimaryLabel()
     addSecondaryLabel()
     subviews.forEach({$0.isUserInteractionEnabled = false})
-    if isSkipButtonVisible {
-      addSkipButton()
-      skipButton.isUserInteractionEnabled = true
-    }
   }
 }

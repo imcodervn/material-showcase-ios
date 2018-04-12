@@ -11,6 +11,7 @@
 		7533A2031FBDE9A100F72AD2 /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7533A2021FBDE9A100F72AD2 /* Utility.swift */; };
 		7533A2051FBDF26500F72AD2 /* MaterialShowcase+Calculations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7533A2041FBDF26500F72AD2 /* MaterialShowcase+Calculations.swift */; };
 		754559391FB0FE1F0014A163 /* MaterialShowcaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 754559381FB0FE1F0014A163 /* MaterialShowcaseController.swift */; };
+		92375CE4207EF2D200F5CA75 /* SkipButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92375CE3207EF2D200F5CA75 /* SkipButtonView.swift */; };
 		CE083A1E1EBACFEB0077666F /* MaterialShowcase.h in Headers */ = {isa = PBXBuildFile; fileRef = CE083A1C1EBACFEB0077666F /* MaterialShowcase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CE083A251EBAD0020077666F /* MaterialShowcase.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE083A241EBAD0020077666F /* MaterialShowcase.swift */; };
 /* End PBXBuildFile section */
@@ -20,6 +21,7 @@
 		7533A2021FBDE9A100F72AD2 /* Utility.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; tabWidth = 2; };
 		7533A2041FBDF26500F72AD2 /* MaterialShowcase+Calculations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MaterialShowcase+Calculations.swift"; sourceTree = "<group>"; };
 		754559381FB0FE1F0014A163 /* MaterialShowcaseController.swift */ = {isa = PBXFileReference; indentWidth = 2; lastKnownFileType = sourcecode.swift; path = MaterialShowcaseController.swift; sourceTree = "<group>"; tabWidth = 2; };
+		92375CE3207EF2D200F5CA75 /* SkipButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkipButtonView.swift; sourceTree = "<group>"; };
 		CE083A191EBACFEB0077666F /* MaterialShowcase.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MaterialShowcase.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE083A1C1EBACFEB0077666F /* MaterialShowcase.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MaterialShowcase.h; sourceTree = "<group>"; };
 		CE083A1D1EBACFEB0077666F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				754559381FB0FE1F0014A163 /* MaterialShowcaseController.swift */,
 				7533A2001FBDE68C00F72AD2 /* MaterialShowcaseInstructionView.swift */,
 				7533A2021FBDE9A100F72AD2 /* Utility.swift */,
+				92375CE3207EF2D200F5CA75 /* SkipButtonView.swift */,
 			);
 			path = MaterialShowcase;
 			sourceTree = "<group>";
@@ -151,6 +154,7 @@
 				7533A2031FBDE9A100F72AD2 /* Utility.swift in Sources */,
 				754559391FB0FE1F0014A163 /* MaterialShowcaseController.swift in Sources */,
 				CE083A251EBAD0020077666F /* MaterialShowcase.swift in Sources */,
+				92375CE4207EF2D200F5CA75 /* SkipButtonView.swift in Sources */,
 				7533A2011FBDE68C00F72AD2 /* MaterialShowcaseInstructionView.swift in Sources */,
 				7533A2051FBDF26500F72AD2 /* MaterialShowcase+Calculations.swift in Sources */,
 			);

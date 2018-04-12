@@ -38,7 +38,11 @@ public class SkipButtonView: UIView {
     public var showcaseViewTag: Int!
     
     public init(with text: String, size: CGFloat) {
-        let skipTextBound: CGSize = text.size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)])
+        #if swift(>=4.0)
+            let skipTextBound: CGSize = text.size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)])
+        #else
+            let skipTextBound: CGSize = text.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: size)])
+        #endif
         
         // Create frame
         let frame = CGRect(x: 0, y: 0, width: skipTextBound.width + SkipButtonView.SKIP_BUTTON_PADDING_HORIZONTAL * 2 + 4, height: skipTextBound.height + SkipButtonView.SKIP_BUTTON_PADDING_VERTICAL * 2 + 4)

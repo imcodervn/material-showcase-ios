@@ -47,8 +47,6 @@ class ViewController: UIViewController {
     showcase.primaryText = "Action 1.1"
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTagretView = true
-    showcase.skipText = "Skip AppTour"
-    showcase.isSkipButtonVisible = true
     showcase.show(completion: {
         print("==== completion Action 1.1 ====")
       // You can save showcase state here
@@ -68,6 +66,9 @@ class ViewController: UIViewController {
     showcase.secondaryText = "Click here to go into long long long long long long long long long long long long long long long details"
     showcase.secondaryTextSize = 14
     showcase.isTapRecognizerForTagretView = true
+    showcase.skipText = "Skip AppTour"
+    showcase.isSkipButtonVisible = true
+    showcase.skipButtonBackgroundColor = UIColor.red
     // Delegate to handle other action after showcase is dismissed.
     showcase.delegate = self
     showcase.show(completion: {

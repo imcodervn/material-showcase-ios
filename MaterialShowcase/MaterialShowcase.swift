@@ -72,6 +72,10 @@ public class MaterialShowcase: UIView {
   @objc public var skipTextColor: UIColor!
   @objc public var skipButtonBackgroundColor: UIColor!
   @objc public var skipButtonBorderRadius: CGFloat = 2.0
+  @objc public var skipButtonMarginLeft: CGFloat = 20
+  @objc public var skipButtonMarginTop: CGFloat = 20
+  @objc public var skipButtonMarginRight: CGFloat = 20
+  @objc public var skipButtonMarginBottom: CGFloat = 20
   // Target
   @objc public var shouldSetTintColor: Bool = true
   @objc public var targetTintColor: UIColor!
@@ -239,6 +243,10 @@ extension MaterialShowcase {
     skipTextSize = SkipButtonView.SKIP_TEXT_SIZE
     skipButtonBackgroundColor = SkipButtonView.SKIP_BUTTON_BACKGROUND_COLOR
     skipButtonBorderRadius = SkipButtonView.SKIP_BUTTON_BORDER_RADIUS
+    skipButtonMarginLeft = SkipButtonView.SKIP_BUTTON_MARGIN
+    skipButtonMarginTop = SkipButtonView.SKIP_BUTTON_MARGIN
+    skipButtonMarginRight = SkipButtonView.SKIP_BUTTON_MARGIN
+    skipButtonMarginBottom = SkipButtonView.SKIP_BUTTON_MARGIN
     // Animation
     aniComeInDuration = ANI_COMEIN_DURATION
     aniGoOutDuration = ANI_GOOUT_DURATION
@@ -475,6 +483,10 @@ extension MaterialShowcase {
     skipButtonView.isSkipButtonVisible = isSkipButtonVisible
     skipButtonView.skipButtonBackgroundColor = skipButtonBackgroundColor
     skipButtonView.skipButtonBorderRadius = skipButtonBorderRadius
+    skipButtonView.skipButtonMarginLeft = skipButtonMarginLeft
+    skipButtonView.skipButtonMarginTop = skipButtonMarginTop
+    skipButtonView.skipButtonMarginRight = skipButtonMarginRight
+    skipButtonView.skipButtonMarginBottom = skipButtonMarginBottom
     
     let skipButtonPosition = calculateSkipButtonPosition(with: backgroundView.frame)
     skipButtonView.frame = CGRect(x: skipButtonPosition.x, y: skipButtonPosition.y, width: skipButtonView.frame.width, height: skipButtonView.frame.height)
@@ -494,24 +506,24 @@ extension MaterialShowcase {
     let skipButtonHeight = skipButtonView.frame.height
     
     // bottom right
-    let bottomRightX = screenWidth - SkipButtonView.SKIP_BUTTON_MARGIN - skipButtonWidth
-    let bottomRightY = screenHeight - SkipButtonView.SKIP_BUTTON_MARGIN_BOTTOM - skipButtonHeight
+    let bottomRightX = screenWidth - skipButtonView.skipButtonMarginRight! - skipButtonWidth
+    let bottomRightY = screenHeight - skipButtonView.skipButtonMarginBottom! - skipButtonHeight
     let bottomRightPoint = CGPoint(x: bottomRightX, y: bottomRightY)
     
     // bottom left
-    let bottomLeftX = SkipButtonView.SKIP_BUTTON_MARGIN
-    let bottomLeftY = screenHeight - SkipButtonView.SKIP_BUTTON_MARGIN_BOTTOM - skipButtonHeight
-    let bottomLeftPoint = CGPoint(x: bottomLeftX, y: bottomLeftY)
+    let bottomLeftX = skipButtonView.skipButtonMarginLeft
+    let bottomLeftY = screenHeight - skipButtonView.skipButtonMarginBottom! - skipButtonHeight
+    let bottomLeftPoint = CGPoint(x: bottomLeftX!, y: bottomLeftY)
     
     // top right
-    let topRightX = screenWidth - SkipButtonView.SKIP_BUTTON_MARGIN - skipButtonWidth
-    let topRightY = SkipButtonView.SKIP_BUTTON_MARGIN_TOP
+    let topRightX = screenWidth - skipButtonView.skipButtonMarginRight! - skipButtonWidth
+    let topRightY = skipButtonView.skipButtonMarginTop!
     let topRightPoint = CGPoint(x: topRightX, y: topRightY)
     
     // top left
-    let topLeftX = SkipButtonView.SKIP_BUTTON_MARGIN
-    let topLeftY = SkipButtonView.SKIP_BUTTON_MARGIN_TOP
-    let topLeftPoint = CGPoint(x: topLeftX, y: topLeftY)
+    let topLeftX = skipButtonView.skipButtonMarginLeft
+    let topLeftY = skipButtonView.skipButtonMarginTop
+    let topLeftPoint = CGPoint(x: topLeftX!, y: topLeftY!)
     let res: CGPoint!
     if outerCircleRect.contains(bottomRightPoint) == false {
         res = bottomRightPoint

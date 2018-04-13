@@ -16,11 +16,9 @@ public class SkipButtonView: UIView {
     internal static let SKIP_TEXT_SIZE: CGFloat = 20
     internal static let SKIP_TEXT_COLOR = UIColor.white
     internal static let SKIP_DEFAULT_TEXT = "skip"
-    internal static let SKIP_BUTTON_MARGIN_TOP: CGFloat = 20
-    internal static let SKIP_BUTTON_MARGIN_BOTTOM: CGFloat = 20
     internal static let SKIP_BUTTON_MARGIN: CGFloat = 20
     internal static let SKIP_BUTTON_VISIBLE: Bool = false
-    internal static let SKIP_BUTTON_BACKGROUND_COLOR = UIColor.blue
+    internal static let SKIP_BUTTON_BACKGROUND_COLOR = UIColor.red
     internal static let SKIP_BUTTON_BORDER_RADIUS: CGFloat = 2.0
     internal static let SKIP_BUTTON_PADDING_HORIZONTAL: CGFloat = 12
     internal static let SKIP_BUTTON_PADDING_VERTICAL: CGFloat = 2
@@ -33,6 +31,10 @@ public class SkipButtonView: UIView {
     public var skipTextFont: UIFont?
     public var skipButtonBackgroundColor: UIColor!
     public var skipButtonBorderRadius: CGFloat!
+    public var skipButtonMarginLeft: CGFloat!
+    public var skipButtonMarginRight: CGFloat!
+    public var skipButtonMarginTop: CGFloat!
+    public var skipButtonMarginBottom: CGFloat!
     
     public weak var delegate: MaterialShowcaseDelegate?
     public var showcaseViewTag: Int!
@@ -67,6 +69,10 @@ public class SkipButtonView: UIView {
         isSkipButtonVisible = SkipButtonView.SKIP_BUTTON_VISIBLE
         skipButtonBackgroundColor = SkipButtonView.SKIP_BUTTON_BACKGROUND_COLOR
         skipButtonBorderRadius = SkipButtonView.SKIP_BUTTON_BORDER_RADIUS
+        skipButtonMarginLeft = SkipButtonView.SKIP_BUTTON_MARGIN
+        skipButtonMarginRight = SkipButtonView.SKIP_BUTTON_MARGIN
+        skipButtonMarginTop = SkipButtonView.SKIP_BUTTON_MARGIN
+        skipButtonMarginBottom = SkipButtonView.SKIP_BUTTON_MARGIN
     }
     
     /// Calculate skip button

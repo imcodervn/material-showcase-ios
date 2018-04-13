@@ -30,12 +30,11 @@ class ViewController: UIViewController {
     showcase.setTargetView(view: button)
     showcase.primaryText = "Action 1"
     showcase.secondaryText = "Click here to go into details"
-    showcase.skipText = "Skip AppTour"
     showcase.shouldSetTintColor = false // It should be set to false when button uses image.
     showcase.backgroundPromptColor = UIColor.blue
     showcase.isTapRecognizerForTagretView = true
-    showcase.isSkipButtonVisible = true
     showcase.delegate = self
+    showcase.backgroundViewType = .full
     showcase.show(completion: {
         print("==== completion Action 1 ====")
       // You can save showcase state here
@@ -48,6 +47,8 @@ class ViewController: UIViewController {
     showcase.primaryText = "Action 1.1"
     showcase.secondaryText = "Click here to go into details"
     showcase.isTapRecognizerForTagretView = true
+    showcase.skipText = "Skip AppTour"
+    showcase.isSkipButtonVisible = true
     showcase.show(completion: {
         print("==== completion Action 1.1 ====")
       // You can save showcase state here

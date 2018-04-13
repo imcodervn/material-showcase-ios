@@ -506,24 +506,24 @@ extension MaterialShowcase {
     let skipButtonHeight = skipButtonView.frame.height
     
     // bottom right
-    let bottomRightX = screenWidth - skipButtonView.skipButtonMarginRight! - skipButtonWidth
-    let bottomRightY = screenHeight - skipButtonView.skipButtonMarginBottom! - skipButtonHeight
+    let bottomRightX = screenWidth - skipButtonMarginRight - skipButtonWidth
+    let bottomRightY = screenHeight - skipButtonMarginBottom - skipButtonHeight
     let bottomRightPoint = CGPoint(x: bottomRightX, y: bottomRightY)
     
     // bottom left
-    let bottomLeftX = skipButtonView.skipButtonMarginLeft
-    let bottomLeftY = screenHeight - skipButtonView.skipButtonMarginBottom! - skipButtonHeight
-    let bottomLeftPoint = CGPoint(x: bottomLeftX!, y: bottomLeftY)
+    let bottomLeftX = skipButtonMarginLeft
+    let bottomLeftY = screenHeight - skipButtonMarginBottom - skipButtonHeight
+    let bottomLeftPoint = CGPoint(x: bottomLeftX, y: bottomLeftY)
     
     // top right
-    let topRightX = screenWidth - skipButtonView.skipButtonMarginRight! - skipButtonWidth
-    let topRightY = skipButtonView.skipButtonMarginTop!
+    let topRightX = screenWidth - skipButtonMarginRight - skipButtonWidth
+    let topRightY = skipButtonMarginTop
     let topRightPoint = CGPoint(x: topRightX, y: topRightY)
     
     // top left
-    let topLeftX = skipButtonView.skipButtonMarginLeft
-    let topLeftY = skipButtonView.skipButtonMarginTop
-    let topLeftPoint = CGPoint(x: topLeftX!, y: topLeftY!)
+    let topLeftX = skipButtonMarginLeft
+    let topLeftY = skipButtonMarginTop
+    let topLeftPoint = CGPoint(x: topLeftX, y: topLeftY)
     let res: CGPoint!
     if outerCircleRect.contains(bottomRightPoint) == false {
         res = bottomRightPoint

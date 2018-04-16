@@ -85,7 +85,7 @@ public class SkipButtonView: UIView {
         skipButton.titleLabel?.font = UIFont.systemFont(ofSize: skipTextSize)
         skipButton.backgroundColor = skipButtonBackgroundColor
         skipButton.layer.cornerRadius = skipButtonBorderRadius
-        skipButton.contentEdgeInsets = UIEdgeInsets(top: 2, left: 12, bottom: 2, right: 12)
+        skipButton.contentEdgeInsets = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
         skipButton.frame = CGRect(x: 0,
                                   y: 0,
                                   width: skipButton.frame.width,

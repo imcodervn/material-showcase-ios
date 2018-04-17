@@ -81,7 +81,7 @@ public class MaterialShowcase: UIView {
   @objc public var targetTintColor: UIColor!
   @objc public var targetHolderRadius: CGFloat = 0.0
   @objc public var targetHolderColor: UIColor!
-  @objc public var targetTransparent: Bool = false
+  @objc public var targetTransparent: Bool = true
   // Text
   @objc public var primaryText: String!
   @objc public var secondaryText: String!
@@ -347,30 +347,30 @@ extension MaterialShowcase {
         // This for smooth render circle
         maskLayer.rasterizationScale = UIScreen.main.scale;
         maskLayer.shouldRasterize = true;
-        
+
         maskLayer.frame = self.bounds
-        
+
         // Create the frame for the circle.
         let circleCenter = calculateCenter(at: targetView, to: containerView)
         let circleRadius = targetHolderRadius
         let rect =  CGRect(x: circleCenter.x - circleRadius, y: circleCenter.y - circleRadius, width: 2 * circleRadius, height: 2 * circleRadius)
-        
+
         // Create the path.
         let path = UIBezierPath(rect: self.bounds)
         maskLayer.fillRule = kCAFillRuleEvenOdd
-        
+
         // Append the circle to the path so that it is subtracted.
         path.append(UIBezierPath(ovalIn: rect))
         maskLayer.path = path.cgPath
-        
+
         // Set the mask of the view.
         self.layer.mask = maskLayer
       }
       /// congnguyen91 ADD FOR TRANSPARENT TARGET END
-      
+
       backgroundView.asCircle()
-      
-      
+
+
     case .full:
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height))
     }

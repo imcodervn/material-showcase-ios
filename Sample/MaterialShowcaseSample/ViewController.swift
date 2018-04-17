@@ -69,6 +69,7 @@ class ViewController: UIViewController {
     showcase.skipText = "Skip AppTour"
     showcase.isSkipButtonVisible = true
     showcase.skipButtonBackgroundColor = UIColor.red
+//    showcase.targetTransparent = false
     // Delegate to handle other action after showcase is dismissed.
     showcase.delegate = self
     showcase.show(completion: {

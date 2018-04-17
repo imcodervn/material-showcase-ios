@@ -81,7 +81,7 @@ public class MaterialShowcase: UIView {
   @objc public var targetTintColor: UIColor!
   @objc public var targetHolderRadius: CGFloat = 0.0
   @objc public var targetHolderColor: UIColor!
-  @objc public var targetTransparent: Bool = true
+  @objc public var targetTransparent: Bool = false
   // Text
   @objc public var primaryText: String!
   @objc public var secondaryText: String!

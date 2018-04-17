@@ -81,6 +81,7 @@ public class MaterialShowcase: UIView {
   @objc public var targetTintColor: UIColor!
   @objc public var targetHolderRadius: CGFloat = 0.0
   @objc public var targetHolderColor: UIColor!
+  @objc public var targetTransparent: Bool = true
   // Text
   @objc public var primaryText: String!
   @objc public var secondaryText: String!
@@ -182,6 +183,11 @@ extension MaterialShowcase {
         self.backgroundView.transform = CGAffineTransform(scaleX: 1, y: 1)
         self.backgroundView.center = center
         self.alpha = 1.0
+        /// congnguyen91 add
+        if self.targetTransparent {
+          self.targetHolderView.alpha = 0.0
+        }
+        /// congnguyen91 end add
       }, completion: { _ in
         self.startAnimations()
       })
@@ -333,7 +339,38 @@ extension MaterialShowcase {
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
       backgroundView.center = center
       
+      ///congnguyen91 ADD FOR TRANSPARENT TARGET BEGIN
+      if targetTransparent {
+        // Create the initial layer from the view bounds.
+        let maskLayer = CAShapeLayer()
+        maskLayer.fillColor = UIColor.black.cgColor
+        // This for smooth render circle
+        maskLayer.rasterizationScale = UIScreen.main.scale;
+        maskLayer.shouldRasterize = true;
+        
+        maskLayer.frame = self.bounds
+        
+        // Create the frame for the circle.
+        let circleCenter = calculateCenter(at: targetView, to: containerView)
+        let circleDiameter = targetHolderView.frame.width > targetHolderView.frame.height ? targetHolderView.frame.width : targetHolderView.frame.height
+        let rect =  CGRect(x: circleCenter.x - circleDiameter / 2, y: circleCenter.y - circleDiameter / 2, width: circleDiameter, height: circleDiameter)
+        
+        // Create the path.
+        let path = UIBezierPath(rect: self.bounds)
+        maskLayer.fillRule = kCAFillRuleEvenOdd
+        
+        // Append the circle to the path so that it is subtracted.
+        path.append(UIBezierPath(ovalIn: rect))
+        maskLayer.path = path.cgPath
+        
+        // Set the mask of the view.
+        self.layer.mask = maskLayer
+      }
+      /// congnguyen91 ADD FOR TRANSPARENT TARGET END
+      
       backgroundView.asCircle()
+      
+      
     case .full:
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width,height: UIScreen.main.bounds.height))
     }
@@ -494,7 +531,7 @@ extension MaterialShowcase {
     if UIDevice.current.userInterfaceIdiom == .pad {
       backgroundView.addSubview(skipButtonView)
     } else {
-      self.backgroundColor = UIColor.black.withAlphaComponent(0.2)
+      self.backgroundColor = UIColor.black.withAlphaComponent(0.3)
       addSubview(skipButtonView)
     }
   }

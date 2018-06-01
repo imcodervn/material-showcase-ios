@@ -8,9 +8,10 @@
 import UIKit
 
 @objc public protocol MaterialShowcaseDelegate: class {
-  @objc optional func showCaseWillDismiss(showcase: MaterialShowcase)
-  @objc optional func showCaseDidDismiss(showcase: MaterialShowcase)
+  
   @objc optional func showCaseSkipped(showcase: MaterialShowcase)
+  @objc optional func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
+  @objc optional func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
 }
 
 public class MaterialShowcase: UIView {
@@ -285,8 +286,12 @@ extension MaterialShowcase {
 
     addTargetRipple(at: center)
     addTargetHolder(at: center)
-    addTarget(at: center)
-
+    
+    // if color is not UIColor.clear, then add the target snapshot
+    if targetHolderColor != .clear {
+      addTarget(at: center)
+    }
+    
     //In iPad version InstructionView was add to backgroundView
     if UIDevice.current.userInterfaceIdiom == .pad {
       addBackground()
@@ -305,11 +310,13 @@ extension MaterialShowcase {
 
     if isTapRecognizerForTagretView {
       //Add gesture recognizer for targetCopyView
-      targetCopyView.addGestureRecognizer(tapGestureRecoganizer())
-      targetCopyView.isUserInteractionEnabled = true
+      hiddenTargetHolderView.addGestureRecognizer(tapGestureRecoganizer())
+      hiddenTargetHolderView.isUserInteractionEnabled = true
     } else {
       // Add gesture recognizer for both container and its subview
       addGestureRecognizer(tapGestureRecoganizer())
+	  hiddenTargetHolderView.addGestureRecognizer(tapGestureRecoganizer())
+	  hiddenTargetHolderView.isUserInteractionEnabled = true
     }
 
     if isSkipButtonVisible {
@@ -327,13 +334,12 @@ extension MaterialShowcase {
     switch self.backgroundViewType {
     case .circle:
       let radius: CGFloat!
-
-      let center = targetCopyView.center//getOuterCircleCenterPoint(for: targetCopyView)
-
+      let center = targetRippleView.center//getOuterCircleCenterPoint(for: targetCopyView)
+      
       if UIDevice.current.userInterfaceIdiom == .pad {
         radius = 300.0
       } else {
-        radius = getOuterCircleRadius(center: center, textBounds: instructionView.frame, targetBounds: targetCopyView.frame)
+        radius = getOuterCircleRadius(center: center, textBounds: instructionView.frame, targetBounds: targetRippleView.frame)
       }
 
       backgroundView = UIView(frame: CGRect(x: 0, y: 0, width: radius * 2,height: radius * 2))
@@ -376,6 +382,22 @@ extension MaterialShowcase {
     }
     backgroundView.backgroundColor = backgroundPromptColor.withAlphaComponent(backgroundPromptColorAlpha)
     insertSubview(backgroundView, belowSubview: targetRippleView)
+    addBackgroundMask(with: targetHolderRadius, in: backgroundView)
+
+  }
+  
+  private func addBackgroundMask(with radius: CGFloat, in view: UIView) {
+    
+    let center = backgroundViewType == .circle ? view.bounds.center : targetRippleView.center
+    let mutablePath = CGMutablePath()
+    mutablePath.addRect(view.bounds)
+    mutablePath.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: 2 * 3.14, clockwise: false)
+    
+    let mask = CAShapeLayer()
+    mask.path = mutablePath
+    mask.fillRule = kCAFillRuleEvenOdd
+    
+    view.layer.mask = mask
   }
 
   /// A background view which add ripple animation when showing target view
@@ -388,11 +410,11 @@ extension MaterialShowcase {
     addSubview(targetRippleView)
 
   }
-
+  
   /// A circle-shape background view of target view
   private func addTargetHolder(at center: CGPoint) {
     hiddenTargetHolderView = UIView()
-    hiddenTargetHolderView.isHidden = true
+    hiddenTargetHolderView.backgroundColor = .clear
     targetHolderView = UIView(frame: CGRect(x: 0, y: 0, width: targetHolderRadius * 2,height: targetHolderRadius * 2))
     targetHolderView.center = center
     targetHolderView.backgroundColor = targetHolderColor
@@ -529,8 +551,6 @@ extension MaterialShowcase {
     skipButtonView.frame = CGRect(x: skipButtonPosition.x, y: skipButtonPosition.y, width: skipButtonView.frame.width, height: skipButtonView.frame.height)
 
     if UIDevice.current.userInterfaceIdiom == .pad {
-      backgroundView.addSubview(skipButtonView)
-    } else {
       self.backgroundColor = UIColor.black.withAlphaComponent(0.3)
       addSubview(skipButtonView)
     }
@@ -588,16 +608,16 @@ extension MaterialShowcase {
     tapGesture.numberOfTouchesRequired = 1
     return tapGesture
   }
-
-  @objc private func tapGestureSelector() {
-    completeShowcase()
+  
+  @objc private func tapGestureSelector(tapGesture:UITapGestureRecognizer) {
+	completeShowcase(didTapTarget: tapGesture.view === hiddenTargetHolderView)
   }
 
   /// Default action when dimissing showcase
   /// Notifies delegate, removes views, and handles out-going animation
-  @objc public func completeShowcase(animated: Bool = true) {
+	@objc public func completeShowcase(animated: Bool = true, didTapTarget: Bool = false) {
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
-      delegate?.showCaseWillDismiss?(showcase: self)
+      delegate?.showCaseWillDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
     if animated {
       targetRippleView.removeFromSuperview()
@@ -623,7 +643,7 @@ extension MaterialShowcase {
       self.removeFromSuperview()
     }
     if delegate != nil && delegate?.showCaseDidDismiss != nil {
-      delegate?.showCaseDidDismiss?(showcase: self)
+      delegate?.showCaseDidDismiss?(showcase: self, didTapTarget: didTapTarget)
     }
   }
 

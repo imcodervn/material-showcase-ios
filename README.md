@@ -69,10 +69,10 @@ There are several target view supported.
   showcase.delegate = self
   
   extension ViewController: MaterialShowcaseDelegate {
-    func showCaseWillDismiss(showcase: MaterialShowcase) {
+    func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
       print("Showcase \(showcase.primaryText) will dismiss.")
     }
-    func showCaseDidDismiss(showcase: MaterialShowcase) {
+    func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget: Bool) {
       print("Showcase \(showcase.primaryText) dimissed.")
     }
   }
@@ -97,6 +97,7 @@ You can define your own styles based on your app.
   // Background
   showcase.backgroundPromptColor = UIColor.blue
   showcase.backgroundPromptColorAlpha = 0.96
+  showcase.backgroundViewType = .full // default is .circle
   // Target
   showcase.targetTintColor = UIColor.blue
   showcase.targetHolderRadius = 44

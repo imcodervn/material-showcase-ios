@@ -8,7 +8,7 @@
 import UIKit
 
 @objc public protocol MaterialShowcaseDelegate: class {
-  
+
   @objc optional func showCaseSkipped(showcase: MaterialShowcase)
   @objc optional func showCaseWillDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
   @objc optional func showCaseDidDismiss(showcase: MaterialShowcase, didTapTarget:Bool)
@@ -286,12 +286,12 @@ extension MaterialShowcase {
 
     addTargetRipple(at: center)
     addTargetHolder(at: center)
-    
+
     // if color is not UIColor.clear, then add the target snapshot
     if targetHolderColor != .clear {
       addTarget(at: center)
     }
-    
+
     //In iPad version InstructionView was add to backgroundView
     if UIDevice.current.userInterfaceIdiom == .pad {
       addBackground()
@@ -335,7 +335,7 @@ extension MaterialShowcase {
     case .circle:
       let radius: CGFloat!
       let center = targetRippleView.center//getOuterCircleCenterPoint(for: targetCopyView)
-      
+
       if UIDevice.current.userInterfaceIdiom == .pad {
         radius = 300.0
       } else {
@@ -385,18 +385,18 @@ extension MaterialShowcase {
     addBackgroundMask(with: targetHolderRadius, in: backgroundView)
 
   }
-  
+
   private func addBackgroundMask(with radius: CGFloat, in view: UIView) {
-    
+
     let center = backgroundViewType == .circle ? view.bounds.center : targetRippleView.center
     let mutablePath = CGMutablePath()
     mutablePath.addRect(view.bounds)
     mutablePath.addArc(center: center, radius: radius, startAngle: 0.0, endAngle: 2 * 3.14, clockwise: false)
-    
+
     let mask = CAShapeLayer()
     mask.path = mutablePath
     mask.fillRule = kCAFillRuleEvenOdd
-    
+
     view.layer.mask = mask
   }
 
@@ -410,7 +410,7 @@ extension MaterialShowcase {
     addSubview(targetRippleView)
 
   }
-  
+
   /// A circle-shape background view of target view
   private func addTargetHolder(at center: CGPoint) {
     hiddenTargetHolderView = UIView()
@@ -550,10 +550,13 @@ extension MaterialShowcase {
     let skipButtonPosition = calculateSkipButtonPosition(with: backgroundView.frame)
     skipButtonView.frame = CGRect(x: skipButtonPosition.x, y: skipButtonPosition.y, width: skipButtonView.frame.width, height: skipButtonView.frame.height)
 
-    if UIDevice.current.userInterfaceIdiom == .pad {
-      self.backgroundColor = UIColor.black.withAlphaComponent(0.3)
-      addSubview(skipButtonView)
-    }
+//    if UIDevice.current.userInterfaceIdiom == .pad {
+//        self.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+//        addSubview(skipButtonView)
+//    } else {
+    self.backgroundColor = UIColor.black.withAlphaComponent(0.3)
+    addSubview(skipButtonView)
+//    }
   }
 
   private func calculateSkipButtonPosition(with outerCircleRect: CGRect) -> CGPoint {
@@ -608,7 +611,7 @@ extension MaterialShowcase {
     tapGesture.numberOfTouchesRequired = 1
     return tapGesture
   }
-  
+
   @objc private func tapGestureSelector(tapGesture:UITapGestureRecognizer) {
 	completeShowcase(didTapTarget: tapGesture.view === hiddenTargetHolderView)
   }

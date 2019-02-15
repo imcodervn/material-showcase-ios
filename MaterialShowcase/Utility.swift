@@ -78,7 +78,7 @@ extension UIView
   }
 }
 
-extension UIViewKeyframeAnimationOptions {
+extension UIView.KeyframeAnimationOptions {
   
   static var curveEaseIn: UIView.KeyframeAnimationOptions {
     get {

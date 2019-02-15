@@ -41,7 +41,7 @@ public class SkipButtonView: UIView {
     
     public init(with text: String, size: CGFloat) {
         #if swift(>=4.0)
-            let skipTextBound: CGSize = text.size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: size)])
+            let skipTextBound: CGSize = text.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: size)])
         #else
             let skipTextBound: CGSize = text.size(attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: size)])
         #endif
